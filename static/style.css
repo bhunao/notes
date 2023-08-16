@@ -1,3 +1,10 @@
-h1 {
-	color: f3f4f4;
+.flex-container { display: flex;
+  display: flex;
 }
+
+.flex-item {
+  background-color: #f0f0f0;
+  flex: 1;
+  word-wrap: break-word;
+}
+
