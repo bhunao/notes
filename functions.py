@@ -10,7 +10,7 @@ def list_files_in_directory(path):
     new_notes_names = []
     for root, directories, files in os.walk(path):
         for file in files:
-            file_list.append(os.path.join(root, file))
+            file_list.append(file[:-3])
             new_notes_names.append(file)
     note_names = new_notes_names
     return file_list

@@ -7,29 +7,48 @@
     </head>
 
     <body>
-        <div class="flex-container">
+        <div class="flex-container menu">
             <div class="flex-item">
                 <a href="#">?LOGO?</a>
             </div>
             <div class="flex-item">
-                <a href="#">notes</a>
+                <a href="#" class="active">notes</a>
                 <a href="#">outise~</a>
             </div>
             <div class="flex-item">
-                <form hx-get="/note/" hx-target="#notes" hx-swap="innerHTML" class="nav-searchbar">
-                    <input type="text" id="note_name" name="name" required>
+                <form hx-get="/note/" hx-target="#notes" hx-swap="innerHTML" class="search-container">
+                    <input type="text" id="note_name" name="name" list="names" required>
+                    <datalist id="names">
+                        {% for note in notes_list %}
+                            <option value={{ note }}></option>
+                        {% endfor %}
+                    </datalist>
                     <button type="submit">search</button>
                 </form>
             </div>
         </div>
+
         <div class="flex-container">
-            <div class="flex-item" style="display: none;">
+            <div class="flex-item" style="flex: 1">
                 indice
             </div>
-            <div class="flex-item">
+            <div class="flex-item" style="flex: 6;">
                 <h1>HTMX Endpoint Notes</h1>
-                <div id="notes"></div>
+                <div id="notes">
+                    <title> {{note_name}}</title>
+                    <div id="content">
+                        {% for note in notes_list %}
+                        <a hx-get="/note/"
+                           hx-target="#notes"
+                           hx-swap="innerHTML"
+                           hx-vals='{"name": "{{ note }}"}' >
+                           <li>{{ note }}</li>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
+
     </body>
 </html>
