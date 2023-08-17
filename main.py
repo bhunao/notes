@@ -21,12 +21,25 @@ async def read_item(request: Request):
         })
 
 @app.get("/note/", response_class=HTMLResponse)
-async def get_note(request: Request, name: str):
+async def get_note(request: Request, name: str, edit: bool=False):
     note_name = name
     note_content = get_note_by_name(name)
+    if edit:
+        return templates.TemplateResponse(
+            "edit_note.html", {
+                "request": request,
+                "note_name": note_name,
+                "note_content": note_content
+            })
     return templates.TemplateResponse(
         "note.html", {
             "request": request,
             "note_name": note_name,
             "note_content": note_content
         })
+
+@app.post("/note/")
+async def save_note(name: str, content:str):
+    print(name)
+    print(content)
+    return name, content

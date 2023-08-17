@@ -1,4 +1,10 @@
 <title> {{note_name}}</title>
 <div>
-    {{ note_content | safe }}
+    <button hx-get="/note/"
+            hx-target="this"
+            hx-swap="innerHTML"
+            hx-vals='{"name": "{{ note_name }}", "edit": 1}' >
+            edit
+    </button>
+        {{ note_content | safe }}
 </div>

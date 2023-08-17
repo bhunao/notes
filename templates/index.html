@@ -34,18 +34,20 @@
             </div>
             <div class="flex-item" style="flex: 6;">
                 <h1>HTMX Endpoint Notes</h1>
+
+
                 <div id="notes">
                     <title> {{note_name}}</title>
-                    <div id="content">
-                        {% for note in notes_list %}
-                        <a hx-get="/note/"
-                           hx-target="#notes"
-                           hx-swap="innerHTML"
-                           hx-vals='{"name": "{{ note }}"}' >
-                           <li>{{ note }}</li>
-                        </a>
-                        {% endfor %}
-                    </div>
+                        <div id="content">
+                            {% for note in notes_list %}
+                            <a hx-get="/note/"
+                               hx-target="#notes"
+                               hx-swap="innerHTML"
+                               hx-vals='{"name": "{{ note }}"}' >
+                               <li>{{ note }}</li>
+                            </a>
+                            {% endfor %}
+                        </div>
                 </div>
             </div>
         </div>
