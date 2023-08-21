@@ -1,0 +1,10 @@
+<title> {{note_name}}</title>
+<div>
+    <form hx-post="/note/" hx-target="#notes" hx-swap="innerHTML" class="search-container">
+        <textarea id="note_content" name="content" required rows="30" cols="150">
+            {{ note_content | safe }}
+        </textarea>
+        <button type="submit">save</button>
+    </form>
+
+</div>
