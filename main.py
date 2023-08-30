@@ -1,45 +1,26 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+import json
+from fastapi import FastAPI
+from fastapi.openapi.utils import get_openapi
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from functions import get_note_by_name, list_files_in_directory
+
+from api import routes
 
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-templates = Jinja2Templates(directory="templates")
+app.include_router(routes.router)
+openapi_schema = get_openapi(
+    title="Documents API",
+    version="0.1.0",
+    description="API for storing and retriving documents in json.",
+    routes=app.routes,
+)
+with open("openapi.yaml", "w") as file:
+    file.write(json.dumps(openapi_schema))
 
 
-@app.get("/", response_class=HTMLResponse)
-async def read_item(request: Request):
-    return templates.TemplateResponse(
-        "index.html", {
-            "request": request,
-            "notes_list": list_files_in_directory("../../notes/z/"),
-        })
-
-@app.get("/note/", response_class=HTMLResponse)
-async def get_note(request: Request, name: str, edit: bool=False):
-    note_name = name
-    note_content = get_note_by_name(name)
-    if edit:
-        return templates.TemplateResponse(
-            "edit_note.html", {
-                "request": request,
-                "note_name": note_name,
-                "note_content": note_content
-            })
-    return templates.TemplateResponse(
-        "note.html", {
-            "request": request,
-            "note_name": note_name,
-            "note_content": note_content
-        })
-
-@app.post("/note/")
-async def save_note(name: str, content:str):
-    print(name)
-    print(content)
-    return name, content
+@app.get("/", tags=["root"])
+async def read_root():
+    return {"message": "documents api @bhunao"}
