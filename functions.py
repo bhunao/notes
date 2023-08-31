@@ -4,6 +4,7 @@ import os
 directory_path = "../../notes/z/"
 note_names = []
 
+
 def list_files_in_directory(path):
     global note_names
     file_list = []
@@ -14,6 +15,7 @@ def list_files_in_directory(path):
             new_notes_names.append(file)
     note_names = new_notes_names
     return file_list
+
 
 def get_note_by_name(name: str):
     name += ".md"
@@ -28,6 +30,4 @@ def get_note_by_name(name: str):
         return "not found"
 
 
-
 all_files = list_files_in_directory(directory_path)
-

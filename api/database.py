@@ -1,8 +1,6 @@
 import sqlite3 as sql3
 from typing import List
 from datetime import datetime
-
-
 from api.api_logging import logger
 
 
@@ -11,21 +9,24 @@ cur = con.cursor()
 # cur.execute("CREATE TABLE note(name, created_at, last_update)")
 
 
-
-async def all_notes_desc():
+def all_notes_desc():
     res = cur.execute("select * from note")
+    logger.info("select notes from db")
     return res.fetchall()
 
-async def get_notes_desc(name: str):
+
+def get_notes_desc(name: str):
     with con:
         res = con.execute("select * from note where name = ?", name)
         return res.fetchone()
 
-async def create_note_desc(name: str):
+
+def create_note_desc(name: str):
     data = (name, datetime.now(), datetime.now())
     with con:
-        res = con.execute("INSERT INTO note VALUES (?)", data)
+        res = con.execute("INSERT INTO note VALUES (?, ?, ?)", data)
         return res.fetchone()
+    logger.info(f"row ({data}) inserted")
 
 
 async def get_all_documents() -> List[dict]:
