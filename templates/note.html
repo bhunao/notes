@@ -1,10 +1,13 @@
-<title> {{note_name}}</title>
-<div>
-    <button hx-get="/note/"
-            hx-target="this"
+{% extends "base.html" %}
+{% block title %} {{note_name}} {% endblock %}
+{% block content %}
+<div clas="#content">
+    <button hx-get="/note/edit/"
+            hx-target="#content"
             hx-swap="innerHTML"
-            hx-vals='{"name": "{{ note_name }}", "edit": 1}' >
+            hx-push-url="true" >
             edit
     </button>
         {{ note_content | safe }}
 </div>
+{% endblock %}
