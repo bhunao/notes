@@ -2,22 +2,23 @@
 {% block title %} {{note_name}} {% endblock %}
 {% block content %}
 
-<div class="flex-item" style="flex: 6;">
+<div class="" id="content">
 
-
-  <div id="notes">
+  <div class="container" id="notes">
     <title> {{note_name}}</title>
     <div id="content">
-      {% for note in notes_list %}
+      {% for name, content in notes_view %}
       <a hx-get="/note/"
-        hx-target="#notes"
+        hx-target="#content"
         hx-swap="innerHTML"
-        hx-vals='{"name": "{{ note }}"}' >
+        hx-vals='{"name": "{{ name }}"}' >
         <div class="card border-primary mb-3">
-          <div class="card-header">{{ note }}</div>
+          <div class="card-header">{{ name }}</div>
           <div class="card-body text-primary">
             <h5 class="card-title">Primary card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <small class="card-text">
+            {{ content }}
+            </small>
           </div>
         </div>
       </a>
