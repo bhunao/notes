@@ -1,13 +1,30 @@
 {% extends "base.html" %}
 {% block title %} {{note_name}} {% endblock %}
 {% block content %}
-<div clas="#content">
-    <button hx-get="/note/edit/"
-            hx-target="#content"
-            hx-swap="innerHTML"
-            hx-push-url="true" >
-            edit
-    </button>
-        {{ note_content | safe }}
+<div class="">
+
+  <div id="content">
+
+
+    <div class="row">
+      <div class="col-sm-2">
+          <div id="list-example" class="list-group list-group-flush sticky-top">
+            {{ index | safe }}
+          </div>
+      </div>
+      <div class="col-8">
+        <button hx-get="/note/edit/"
+                hx-target="#content"
+                hx-swap="innerHTML" >
+                edit
+        </button>
+          <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
+            {{ note_content | safe }}
+          </div>
+      </div>
+    </div>
+
+  </div>
+
 </div>
 {% endblock %}
