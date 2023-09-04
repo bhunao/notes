@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block title %} {{note_name}} {% endblock %}
 {% block content %}
-<title> {{note_name}}</title>
-<div clas="#content">
-  <form hx-post="/note/edit/" hx-target="#content" hx-swap="innerHTML">
-    <textarea id="note_content" name="note_content" required rows="30" cols="150" hx-include="[name={{ note_name }}]">
+<div id="content">
+  <form hx-post="/note/?name={{ note_name }}" hx-target="#content" hx-swap="innerHTML">
+    <input class="form-control me-2" type="search" value="{{ note_name }}" aria-label="Seasdarch" id="note_name" name="name" >
+    <textarea id="note_content" name="note_content" required rows="30" cols="150">
       {{ note_content | safe }}
     </textarea>
     <button type="submit">save</button>

@@ -13,9 +13,14 @@
           </div>
       </div>
       <div class="col-8">
-        <button hx-get="/note/edit/"
+        <h1>
+          {{ note_name }}
+        </h1>
+        <button hx-get="/note/edit/?name={{ note_name }}"
                 hx-target="#content"
-                hx-swap="innerHTML" >
+                hx-swap="innerHTML"
+                hx-push-url="true"
+                >
                 edit
         </button>
           <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">

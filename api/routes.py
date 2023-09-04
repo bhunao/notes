@@ -1,4 +1,4 @@
-import logging
+from api.api_logging import logger
 from typing import Annotated
 from fastapi import APIRouter, Form, Request
 from fastapi.responses import HTMLResponse
@@ -17,22 +17,18 @@ def hx(request: Request) -> bool:
 
 @router.get("/", response_class=HTMLResponse)
 async def home(request: Request, name: str = None):
-    logging.info("home")
-    print("HOME", name)
+    logger.info(["home"])
     if name:
-        content = get_note_by_name(name)
-        index = text_index(content)
-        content = html(content)
+        text = get_note_by_name(name)
         return templates.TemplateResponse(
             "note.html", {
                 "request": request,
                 "note_name": name,
-                "index": index,
-                "note_content": content,
+                "index": text_index(text),
+                "note_content": html(text),
             },
             block_name="content" if hx(request) else None,
         )
-    print("awsçldkfjhawdçlkfghj")
     return templates.TemplateResponse(
         "index.html", {
             "request": request,
@@ -43,11 +39,15 @@ async def home(request: Request, name: str = None):
     )
 
 
+@router.post("/", response_class=HTMLResponse)
+async def save_note(request: Request, name: str, note_content: str = None):
+    logger.info([name, note_content])
+    logger.info([*request.headers.items()])
+
+
 @router.get("/edit/", response_class=HTMLResponse)
 async def edit_note(request: Request, name: str):
-    print(*request.headers.items(), "\n")
-    logging.info("EDIT NOTE")
-    print("EDIT_note", name, hx(request))
+    logger.info(["search", name])
     return templates.TemplateResponse("edit_note.html", {
         "request": request,
         "note_name": name,
@@ -59,7 +59,7 @@ async def edit_note(request: Request, name: str):
 
 @router.post("/search/", response_class=HTMLResponse)
 async def search_note(request: Request, name: Annotated[str, Form()]):
-    print("SEARCH", name, hx(request))
+    logger.info(["search", name])
     # TODO -> search algorithm
     content = get_note_by_name(name)
     index = text_index(content)
