@@ -1,7 +1,7 @@
 # ja fiz
 - api - fastapi/happyx/python.http.server (fiz 3 vezes uma com cada)
 - front - htmx/bootsrap
-- conexão com as notas
+- pesquisa: procurar as notas por nome nas pasta
 
 # essecial
 - api:
