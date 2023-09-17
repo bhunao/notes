@@ -1,8 +1,8 @@
 import logging
 
-logger = logging.getLogger("notes-api")
+log = logging.getLogger("notes-api")
 
-logger.setLevel(logging.DEBUG)
+log.setLevel(logging.DEBUG)
 
 file_handler = logging.FileHandler('notes_api.log')
 file_handler.setLevel(logging.DEBUG)
@@ -16,5 +16,5 @@ formatter = logging.Formatter(
 # file_handler.setFormatter(formatter)
 console_handler.setFormatter(formatter)
 
-logger.addHandler(file_handler)
-logger.addHandler(console_handler)
+log.addHandler(file_handler)
+log.addHandler(console_handler)
