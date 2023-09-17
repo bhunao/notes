@@ -1,7 +1,7 @@
 import os
 from fastapi import HTTPException
 from logging import getLogger
-from api.crud import create_note, insert_db, query
+from api.crud import create_note, query
 
 
 log = getLogger(__name__)
@@ -19,9 +19,10 @@ def list_files_in_directory(path):
             new_notes_names.append(file)
             name = file[:-3]
             path = root[len(directory_path):]
-            if query({"name": name, "path": path}):
+            if not query({"name": name, "path": path}):
                 create_note(name, path)
                 log.info(f"created note {name} with path {path}")
+                print(name, path)
     note_names = new_notes_names
     return file_list
 
