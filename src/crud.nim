@@ -3,10 +3,16 @@ import std/math
 
 
 proc getRowById*(id: int): Row =
+  let db = open("mytest.db", "", "", "")
+  result = db.getRow(
+    sql"SELECT * FROM notes WHERE id = ?", id
+  )
+  db.close()
+
 proc getRow*(name, path: string): seq[Row] =
   let db = open("mytest.db", "", "", "")
   result = db.getAllRows(
-    sql"SELECT * FROM notes WHERE name = ? and path = ?", name, path
+    sql"SELECT * FROM notes WHERE name = ?", name
   )
   db.close()
 
