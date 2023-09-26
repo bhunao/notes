@@ -4,7 +4,8 @@ import std/strformat
 import std/sequtils
 import crud
 
-let notesFolder* = "/home/bhunao/notes/z_bkp/"
+let notesFolder* = getEnv("NOTES_DIR")
+echo notesFolder
 
 proc insertNotesFromPath(dir: string) =
   var paths = toSeq(walkDirRec(dir))
