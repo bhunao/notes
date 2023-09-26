@@ -8,3 +8,14 @@ build/
 *.js
 *.log
 *.lg
+components
+notes.db
+mytest.db
+__pycache__
+crud
+db
+j
+main
+utils
+*.db
+src/db

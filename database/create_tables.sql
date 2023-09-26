@@ -1,9 +1,8 @@
 create table if not exists `notes` (
   `id` integer not null primary key autoincrement,
-  `name` VARCHAR(255) null,
-  `path` varchar(255) null,
-  `content` varchar(255) not null,
-  `created_at` datetime not null,
+  `name` VARCHAR(255) not null,
+  `path` varchar(255) not null,
+  `created_at` datetime null default CURRENT_TIMESTAMP, 
   `last_update` datetime null default CURRENT_TIMESTAMP,
   `parent` varchar(255) null,
   `type` varchar(255) null
