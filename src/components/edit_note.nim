@@ -24,10 +24,12 @@ proc htmlEditNote*(row: Row, content: string): string =
 
         tdiv(class="mb-3"):
           label(`for`="note_content", class="form-label"): text "Example textarea"
-          textarea(class="form-control", id="note_content", rows="10", name="textarea"): text content
+          textarea(class="form-control", type="search", id="note_content", rows="10", name="content", `required`=""): text content
 
-        tdiv(class="container"):
-          button(class="btn btn-light", type="submit"):
-            text "Search"
+        tdiv(class="container p-3"):
+          button(class="btn btn-dark btn-sm", hx-get="/note/"&row[0], hx-trigger="click", hx-target="#content", hx-swap="innerHTML", hx-push-url="true"):
+            text "Cancel"
+          button(class="btn btn-dark btn-sm", hx-post="/edit/"&row[0], hx-trigger="click", hx-target="#content", hx-swap="innerHTML", hx-push-url="true"):
+            text "Save"
 
   result = $res

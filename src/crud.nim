@@ -22,3 +22,13 @@ proc insertRow*(name, path: string) =
   )
   db.close()
 
+proc updateRow*(id, name, path: string) =
+  let db = open("mytest.db", "", "", "")
+  echo "trying to update"
+  db.exec(
+    sql"UPDATE notes SET name = ?, path = ? where id = ?", name, path, id
+  )
+  echo name, path, id
+  echo "udpated"
+  db.close()
+
