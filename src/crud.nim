@@ -2,6 +2,7 @@ import db_connector/db_sqlite
 import std/math
 
 
+proc getRowById*(id: int): Row =
 proc getRow*(name, path: string): seq[Row] =
   let db = open("mytest.db", "", "", "")
   result = db.getAllRows(
