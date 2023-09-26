@@ -4,11 +4,12 @@ import utils
 import std/os
 import std/strutils
 import markdown
-import components
+import components/html_template
+import components/note
 
 serve("127.0.0.1", 5000):
   get "/":
-    "Hello, world!"
+    answerHtml(req, $htmlTemplate(), Http200)
   get "/note/{name}":
     var result = getRow(name, "")
     echo result
