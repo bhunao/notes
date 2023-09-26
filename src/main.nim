@@ -11,11 +11,10 @@ import components/edit_note
 
 serve("127.0.0.1", 5000):
   get "/edit/{id:int}":
-    echo req
+    echo "body: ", happyx.parseXWwwFormUrlencoded(req.body)
     var 
       row = getRowById(id)
       fullPath = row[2] / row[1].addFileExt "md"
-      config = markdown.initGfmConfig()
       html = openNote(fullPath)
       editNote = $htmlEditNote(row, html)
 
@@ -47,21 +46,19 @@ serve("127.0.0.1", 5000):
     else:
       answerHtml(req, $htmlSearch(result), Http200)
 
-  get "/note/{name}":
-    var result = getRow(name, "")
-    echo result
-    if result.len == 0:
-      return "Hello, world!"          
-    elif result.len == 1:
-      var 
-        row = result[0]
-        fullPath = row[2] / row[1].addFileExt "md"
-        config = markdown.initGfmConfig()
-        html = $htmlNote(row, markdown(openNote(fullPath), config))
-      answerHtml(req, html, Http200)
+  get "/note/{id:int}":
+    var 
+      row = getRowById(id)
+      fullPath = row[2] / row[1].addFileExt "md"
+      config = markdown.initGfmConfig()
+      html = markdown(openNote(fullPath), config)
+      note = $htmlNote(row, html)
 
+      
+    if req.headers.hasKey("hx-request"):
+      answerHtml(req, note, Http200)
     else:
-      return "more than 1 stuff"
+      answerHtml(req, $htmlTemplate(note), Http200)
     
 
   # on any HTTP method at http://127.0.0.1:5000/public/path/to/file.ext
