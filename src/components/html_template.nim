@@ -27,39 +27,10 @@ proc htmlTemplate*(content: string = "coisa"): string =
                     tdiv(id="simple-list-example", class="d-flex flex-column gap-1 simple-list-example-scrollspy text-center"):
                         a(class="p-1 rounded", href="#simple-list-item-1"):
                             text "Item 1"
-                        a(class="p-1 rounded", href="#simple-list-item-2"):
-                            text "Item 2"
-                        a(class="p-1 rounded", href="#simple-list-item-3"):
-                            text "Item 3"
-                        a(class="p-1 rounded", href="#simple-list-item-4"):
-                            text "Item 4"
-                        a(class="p-1 rounded", href="#simple-list-item-5"):
-                            text "Item 5"
 
                 tdiv(class="col-10 border-start"):
                     tdiv(id="content", data-bs-spy="scroll", data-bs-target="#simple-list-example", data-bs-offset="0", data-bs-smooth-scroll="true", class="scrollspy-example", tabindex="0"):
                         verbatim content
-
-                        h4(id="simple-list-item-1"):
-                            text "Item 1"
-                        p:
-                            text "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur dicta quas ipsum a dolores. Nobis sunt, alias, iure tempore unde, dolore ad deserunt rem laborum quisquam a cum reprehenderit debitis?"
-                        h4(id="simple-list-item-2"):
-                            text "Item 2"
-                        p:
-                            text "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur dicta quas ipsum a dolores. Nobis sunt, alias, iure tempore unde, dolore ad deserunt rem laborum quisquam a cum reprehenderit debitis?"
-                        h4(id="simple-list-item-3"):
-                            text "Item 3"
-                        p:
-                            text "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur dicta quas ipsum a dolores. Nobis sunt, alias, iure tempore unde, dolore ad deserunt rem laborum quisquam a cum reprehenderit debitis?"
-                        h4(id="simple-list-item-4"):
-                            text "Item 4"
-                        p:
-                            text "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur dicta quas ipsum a dolores. Nobis sunt, alias, iure tempore unde, dolore ad deserunt rem laborum quisquam a cum reprehenderit debitis?"
-                        h4(id="simple-list-item-5"):
-                            text "Item 5"
-                        p:
-                            text "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur dicta quas ipsum a dolores. Nobis sunt, alias, iure tempore unde, dolore ad deserunt rem laborum quisquam a cum reprehenderit debitis?"
 
             script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js", integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm", crossorigin="anonymous")
     result = $res
