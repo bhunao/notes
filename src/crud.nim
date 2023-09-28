@@ -28,7 +28,7 @@ proc updateRow*(id, name, path: string) =
   db.exec(
     sql"UPDATE notes SET name = ?, path = ? where id = ?", name, path, id
   )
-  echo name, path, id
+  echo path, name, " | ", id
   echo "udpated"
   db.close()
 

@@ -17,20 +17,21 @@ proc isHxRequest(req: Request): bool =
   else:
     return false
 
-
 serve("127.0.0.1", 5000):
   post "/edit/{id:int}":
+    echo "======================================="
     echo "body: ", happyx.parseXWwwFormUrlencoded(req.body)
+    echo "======================================="
+
     var 
       row = getRowById(id)
       path = row[2] / row[1].addFileExt "md"
-      fullPath = "/home/bhunao/notes/z_bkp/" / path
-      body = happyx.parseXWwwFormUrlencoded(req.body)
+      notes_dir = getEnv("NOTES_DIR")
+      fullPath = notes_dir / path
+      body = parseXWwwFormUrlencoded(req.body)
       content = body["content"]
 
-    updateRow(row[0], row[1], row[2])
-    writeFile(fullPath, content)
-      
+    # saveNote(row, content)
     var
       html = openNote(path)
       note = markdown $htmlNote(row, content)
@@ -41,6 +42,7 @@ serve("127.0.0.1", 5000):
       answerHtml(req, $htmlTemplate(note), Http200)
 
   get "/edit/{id:int}":
+    echo fmt"got edit stuff"
     var 
       row = getRowById(id)
       fullPath = row[2] / row[1].addFileExt "md"
@@ -74,6 +76,7 @@ serve("127.0.0.1", 5000):
       answerHtml(req, $htmlSearch(result), Http200)
 
   get "/note/{id:int}":
+    echo fmt"notes {id}"
     var 
       row = getRowById(id)
       fullPath = row[2] / row[1].addFileExt "md"
@@ -82,7 +85,7 @@ serve("127.0.0.1", 5000):
       note = $htmlNote(row, html)
       
     if req.headers.hasKey("hx-request"):
-      answerHtml(req, note, Http200)
+      answerHtml(req, $htmlNote(row, html), Http200)
     else:
       answerHtml(req, $htmlTemplate(note), Http200)
     

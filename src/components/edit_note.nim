@@ -29,7 +29,7 @@ proc htmlEditNote*(row: Row, content: string): string =
         tdiv(class="container p-3"):
           button(class="btn btn-dark btn-sm", hx-get="/note/"&row[0], hx-trigger="click", hx-target="#content", hx-swap="innerHTML", hx-push-url="true"):
             text "Cancel"
-          button(class="btn btn-dark btn-sm", hx-post="/edit/"&row[0], hx-trigger="click", hx-target="#content", hx-swap="innerHTML", hx-push-url="true"):
+          button(class="btn btn-dark btn-sm", hx-post="/edit/"&row[0], hx-trigger="click", hx-redirect="/note"):
             text "Save"
 
   result = $res

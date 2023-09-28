@@ -1,8 +1,10 @@
+import crud
+
 import std/os
 import std/strutils
 import std/strformat
 import std/sequtils
-import crud
+import db_connector/db_sqlite
 
 let notesFolder* = getEnv("NOTES_DIR")
 echo notesFolder
@@ -10,16 +12,20 @@ echo notesFolder
 proc insertNotesFromPath(dir: string) =
   var paths = toSeq(walkDirRec(dir))
   for filePath in paths:
-    var (path, name) = filePath.splitPath()
+    var (pathFile, name) = filePath.splitPath()
     name = filePath.extractFilename
-    path = path[dir.len-1 .. ^1]
-    echo fmt"name: {name} | path: {path}"
-    insertRow(name, path)
+    pathFile = pathFile[dir.len-1 .. ^1]
+    echo fmt"name: {name} | pathFile: {pathFile}"
+    insertRow(name, pathFile)
   
 
-proc openNote*(path: string): string =
+proc openNote*(pathFile: string): string =
   let beforePath = "/home/bhunao/notes/z_bkp/"
-  echo "oppening file: ", beforePath / path
-  return readFile(beforePath / path)
+  echo "oppening file: ", beforePath / pathFile
+  return readFile(beforePath / pathFile)
+
+proc saveNote*(row: Row, content, rootDir = notesFolder) =
+    updateRow(row[0], row[1], row[2])
+    writeFile(notesFolder / row[1] / row[2], content)
 
 # insertNotesFromPath(notesFolder)
