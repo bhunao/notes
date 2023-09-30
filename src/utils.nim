@@ -1,12 +1,11 @@
 import crud
-
 import std/os
 import std/strutils
 import std/strformat
 import std/sequtils
 import db_connector/db_sqlite
 
-let notesFolder* = getEnv("NOTES_DIR")
+const notesFolder* = "/home/bhunao/notes/zbkup/"
 echo notesFolder
 
 proc insertNotesFromPath(dir: string) =
@@ -17,11 +16,12 @@ proc insertNotesFromPath(dir: string) =
     pathFile = pathFile[dir.len-1 .. ^1]
     echo fmt"name: {name} | pathFile: {pathFile}"
     insertRow(name, pathFile)
-  
 
 proc openNote*(pathFile: string): string =
-  let beforePath = "/home/bhunao/notes/z_bkp/"
+  let beforePath = notesFolder
+  echo beforePath
   echo "oppening file: ", beforePath / pathFile
+  echo beforePath / pathFile
   return readFile(beforePath / pathFile)
 
 proc saveNote*(row: Row, content, rootDir = notesFolder) =
