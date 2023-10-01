@@ -19,9 +19,6 @@ proc insertNotesFromPath(dir: string) =
 
 proc openNote*(pathFile: string): string =
   let beforePath = notesFolder
-  echo beforePath
-  echo "oppening file: ", beforePath / pathFile
-  echo beforePath / pathFile
   return readFile(beforePath / pathFile)
 
 proc saveNote*(row: Row, content, rootDir = notesFolder) =
