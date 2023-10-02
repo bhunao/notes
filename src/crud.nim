@@ -1,5 +1,4 @@
 import db_connector/db_sqlite
-import std/math
 
 
 proc getRowById*(id: int): Row =
