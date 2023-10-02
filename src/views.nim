@@ -24,7 +24,7 @@ proc getNote*(ctx: Context) {.async.} =
   var id = ctx.getPathParams("id")
 
   echo "========== get:note endpoint"
-  echo fmt"path parem id=[{id}]"
+  echo fmt"path parameter id=[{id}]"
 
   let db = open("mytest.db", "", "", "")
   var row = db.getRow( sql"SELECT * FROM notes WHERE id = ?", id)
@@ -36,20 +36,21 @@ proc getNote*(ctx: Context) {.async.} =
   var 
     note = openNote(row[2] / row[1].addFileExt ".md" )
     config = markdown.initGfmConfig()
-    content = markdown(note, config)
+    content = htmlNote(row, markdown(note, config))
   resp if isHxRequest ctx: content else: htmlTemplate content
 
-proc postNote*(ctx: Context) {.async.} =
+proc putNote*(ctx: Context) {.async.} =
   # TODO: save the content to the file and update in database
   var
-    name = ctx.getFormParams("name")
+    name = ctx.getFormParamsOption("name")
     path = ctx.getFormParams("path")
     content = ctx.getFormParams("content")
 
-  echo "========== post:note endpoint"
+  echo "========== put:note endpoint"
   echo fmt"form param name=[{name}]"
   echo fmt"form param path=[{path}]"
   echo fmt"form param content=[{content}]"
+  echo ctx.request
 
   resp htmlTemplate()
 
@@ -78,4 +79,18 @@ proc postSearch*(ctx: Context) {.async.} =
 proc getEdit*(ctx: Context) {.async.} =
   # TODO: get note content inside a htmlEditNote
   echo "========== get:edit endpoint"
-  resp htmlTemplate()
+
+  var id = ctx.getPathParams("id")
+  echo fmt"path parameter id=[{id}]"
+
+  let db = open("mytest.db", "", "", "")
+  var row = db.getRow( sql"SELECT * FROM notes WHERE id = ?", id)
+  db.close()
+
+  if row.isEmpty:
+    resp fmt"note with id=[{id}] not found", Http404
+
+  var 
+    note = openNote(row[2] / row[1].addFileExt ".md")
+    content = htmlEditNote(row, note)
+  resp if isHxRequest ctx: content else: htmlTemplate content

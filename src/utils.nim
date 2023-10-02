@@ -1,6 +1,5 @@
 import crud
 import std/os
-import std/strutils
 import std/strformat
 import std/sequtils
 import db_connector/db_sqlite
@@ -21,7 +20,7 @@ proc openNote*(pathFile: string): string =
   let beforePath = notesFolder
   return readFile(beforePath / pathFile)
 
-proc saveNote*(row: Row, content, rootDir = notesFolder) =
+proc saveNote*(row: Row, content: string, rootDir = notesFolder) =
     updateRow(row[0], row[1], row[2])
     writeFile(notesFolder / row[1] / row[2], content)
 
