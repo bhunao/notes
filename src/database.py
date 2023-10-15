@@ -15,6 +15,7 @@ def create(note: Note, _engine: Engine = engine):
     with Session(_engine) as session:
         session.add(note)
         session.commit()
+        session.refresh(note)
 
 
 def select_all(_engine: Engine = engine) -> List[Note]:
@@ -63,3 +64,37 @@ def update_by_id(id: int, old_note: Note, _engine: Engine = engine) -> bool:
         session.commit()
         session.refresh(note)
         return True
+
+
+def delete_by_id(id: int, _engine: Engine = engine):
+    with Session(_engine) as session:
+        statement = select(Note).where(Note.id == id)
+        to_delete = session.exec(statement).one_or_none()
+
+        if to_delete is None: raise KeyError(f"no note with id: {id}")
+
+        session.delete(to_delete)
+        session.commit()
+
+
+if __name__ == "__main__":
+    select_all()
+    test_note = Note(name="teste_nome", path="/test_dir")
+    create(test_note)
+
+    selected_one = select_note(test_note)[0]
+    assert selected_one is not None
+    assert selected_one.id is not None
+
+    test_note.name = "teste_nome_02"
+    test_note.path = "/teste_dir_02"
+
+    update_by_id(selected_one.id, test_note)
+    selected_one = select_note(test_note)[0]
+    assert selected_one is not None
+    assert selected_one.id is not None
+    assert selected_one.name == "teste_nome_02"
+    assert selected_one.path == "/teste_dir_02"
+
+    delete_by_id(selected_one.id)
+    assert select_note(selected_one) == []
