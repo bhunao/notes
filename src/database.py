@@ -45,7 +45,7 @@ def select_by_id(id: int, _engine: Engine = engine) -> Note | None:
         return result
 
 
-def update_by_id(id: int, old_note: Note, _engine: Engine = engine) -> bool:
+def update_by_id(id: int, new_note: Note, _engine: Engine = engine) -> bool:
     with Session(_engine) as session:
         statement = select(Note).where(Note.id == id)
         note = session.exec(statement).one_or_none()
@@ -54,10 +54,10 @@ def update_by_id(id: int, old_note: Note, _engine: Engine = engine) -> bool:
 
         updatable_fields = ["name", "path", "parent", "type"]
         for field in updatable_fields:
-            old_value = getattr(old_note, field)
-            new_value = getattr(note, field)
-            if new_value != old_value:
-                setattr(note, field, old_value)
+            new_value = getattr(new_note, field)
+            old_value = getattr(note, field)
+            if old_value != new_value:
+                setattr(note, field, new_value)
         note.last_edit = datetime.now()
 
         session.add(note)
