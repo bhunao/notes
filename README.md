@@ -49,3 +49,4 @@ notes metadata
 - edit
 - new
 - del
+- search
