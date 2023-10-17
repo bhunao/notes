@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container pb-5 pt-3">
+	<div class="d-flex justify-content-between">
+		<small><strong>created:</strong> 2023-10-15 11:32</small>
+		<small><strong>last edit:</strong> 3 days ago</small>
+	</div>
+
+	<hr>
+
+	<div class="d-flex w-100 justify-content-between">
+		<div class="input-group m-0 p-0">
+			<input type="text" class="form-control" placeholder="Path" aria-label="Path" value="/path/to/test/directory">
+			<span class="input-group-text">/</span>
+			<input type="text" class="form-control" placeholder="Name" aria-label="Name" value="Lorem ipsum dolor sit amet">
+			<span class="input-group-text">.md</span>
+		</div>
+
+		<div class="btn-group btn-small" role="group" aria-label="Basic mixed styles example">
+			<button type="button" class="btn btn-sm btn-danger rounded-0 border border-white">Cancel</button>
+			<button type="button" class="btn btn-sm btn-success rounded-0 border border-white">Save</button>
+		</div>
+	</div>
+
+	<hr>
+
+	<!-- note content -->
+	<div class="form-floating">
+		<textarea class="form-control textarea h-100" rows="25" id="floatingTextarea">
+			Lorem ipsum dolor sit amet.
+			Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
+
+			Coisa coisada
+			Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.
+
+			Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
+		</textarea>
+	</div>
+
+</div>
+{% endblock %}
