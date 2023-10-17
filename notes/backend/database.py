@@ -2,7 +2,7 @@ from datetime import datetime
 from sqlmodel import Session, SQLModel, create_engine, select
 from sqlalchemy.future import Engine
 from typing import List
-from models import Note
+from .models import Note
 
 sqlite_file_name = "database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
@@ -20,8 +20,9 @@ def create(note: Note, _engine: Engine = engine):
 
 def select_all(_engine: Engine = engine) -> List[Note]:
     with Session(_engine) as session:
-        statement = select(Note)
-        return [note for note in session.exec(statement)]
+        statement = select(Note).where()
+        result = [note for note in session.exec(statement).fetchall()]
+        return result
 
 
 def select_note(note: Note, _engine: Engine = engine) -> List[Note]:

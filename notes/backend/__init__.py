@@ -1,3 +1,1 @@
-import models
-import files
-import database
+from . import models, files, database
