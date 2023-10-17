@@ -12,7 +12,8 @@ directory_path = environ.get("NOTES_PATH")
 print("directory path: ", directory_path)
 note_names = []
 
-assert directory_path is not None
+assert directory_path is not None, "YOU NEED TO CREATE THE ENVIROMENT VARIABLE 'NOTES_PATH'"
+assert Path(directory_path).is_dir(), "´NOTES_PATH´ ENVIROMENT VARIABLE IS NOT A DIR"
 
 
 def validate_file(path: str):

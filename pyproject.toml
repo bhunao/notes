@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "notes"
+version = "0.1.0"
+description = "web app to read markdown notes in html"
+authors = ["bhunao <bh.felix@hotmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Markdown = "^3.5"
+fastapi = "^0.103.2"
+sqlmodel = "^0.0.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

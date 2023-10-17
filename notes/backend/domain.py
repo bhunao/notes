@@ -1,7 +1,10 @@
-from typing import List, Tuple
 import database
 import files
 import models
+
+from typing import List, Tuple
+
+import markdown
 
 
 def generate_note_metadata(files: List[Tuple[str, str]]):
@@ -13,19 +16,19 @@ def generate_note_metadata(files: List[Tuple[str, str]]):
         database.create(new_note)
 
 
-# domain stuff
 def new(note: models.Note):
     files.create_if_not_exists(note.name, note.path)
     database.create(note)
 
 
-def get(note: models.Note) -> List[models.Note]:
-    files.get_content(note.name, note.path)
+def get(note: models.Note) -> str:
+    content = files.get_content(note.name, note.path)
     result = database.select_note(note)
+    result = markdown.markdown(content)
     return result
 
 
-def get_all(note: models.Note) -> List[models.Note]:
+def get_all(start: int = 0, end: int = 10) -> List[models.Note]:
     result = database.select_all()
     return result
 
@@ -48,4 +51,7 @@ def delete(id: int):
 
 if __name__ == "__main__":
     lista = files.list_files_in_directory(files.directory_path)
-    generate_note_metadata(lista)
+    # generate_note_metadata(lista)
+
+    me = models.Note(name="me", path="")
+    print(get(me))
