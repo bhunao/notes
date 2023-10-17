@@ -19,15 +19,25 @@ def new(note: models.Note):
     database.create(note)
 
 
-def get(note: models.Note) -> str:
+def get_html(note: models.Note) -> str:
     content = files.get_content(note.name, note.path)
     result = database.select_note(note)
     result = markdown.markdown(content)
     return result
 
 
-def get_all(start: int = 0, end: int = 10) -> List[models.Note]:
-    result = database.select_all()
+def get(note: models.Note) -> str:
+    content = files.get_content(note.name, note.path)
+    return content
+
+
+def get_all_where(*args):
+    result = database.select_all_where(*args)
+    return result
+
+
+def get_all(offset: int = 0, limit: int = 30) -> List[models.Note]:
+    result = database.select_all(offset, limit)
     return result
 
 
@@ -52,4 +62,3 @@ if __name__ == "__main__":
     # generate_note_metadata(lista)
 
     me = models.Note(name="me", path="")
-    print(get(me))

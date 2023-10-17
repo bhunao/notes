@@ -18,10 +18,17 @@ def create(note: Note, _engine: Engine = engine):
         session.refresh(note)
 
 
-def select_all(_engine: Engine = engine) -> List[Note]:
+def select_all(offset: int = 0, limit: int = 10,_engine: Engine = engine) -> List[Note]:
     with Session(_engine) as session:
-        statement = select(Note).where()
-        result = [note for note in session.exec(statement).fetchall()]
+        statement = select(Note).order_by(Note.last_edit, ).offset(offset).limit(limit)
+        result = [note for note in session.exec(statement).fetchall()][::-1]
+        return result
+
+
+def select_all_where(*where_options, offset: int = 0, limit: int = 10,_engine: Engine = engine) -> List[Note]:
+    with Session(_engine) as session:
+        statement = select(Note).where(*where_options).order_by(Note.last_edit, ).offset(offset).limit(limit)
+        result = [note for note in session.exec(statement).fetchall()][::-1]
         return result
 
 
