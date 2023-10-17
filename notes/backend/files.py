@@ -1,11 +1,11 @@
-import database
+from . import database
+from .models import Note
 
 from typing import List, Tuple
 from pathlib import Path
 
 from datetime import datetime
 from os import walk, environ
-from models import Note
 
 
 directory_path = environ.get("NOTES_PATH")

@@ -1,6 +1,4 @@
-import database
-import files
-import models
+from . import models, files, database
 
 from typing import List, Tuple
 
