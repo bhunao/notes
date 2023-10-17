@@ -1,4 +1,4 @@
-from .. import models
+from ... import models
 from sqlmodel import SQLModel, create_engine, Session, select
 
 
