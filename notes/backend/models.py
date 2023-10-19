@@ -11,3 +11,11 @@ class Note(SQLModel, table=True):
     type: Optional[str] = None
     date_created: datetime = Field(default=datetime.now())
     last_edit: datetime = Field(default=datetime.now())
+
+
+class RequestNote(SQLModel, table=False):
+    name: str
+    path: Optional[str] = None
+    parent: Optional[int] = None
+    type: Optional[str] = None
+    content: str
