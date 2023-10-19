@@ -31,7 +31,7 @@ def get(note: models.Note) -> str:
     return content
 
 
-def get_all_where(*args):
+def get_all_where(*args) -> List[models.Note]:
     result = database.select_all_where(*args)
     return result
 
