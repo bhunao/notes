@@ -10,15 +10,15 @@
 
 	<div class="d-flex w-100 justify-content-between">
 		<div class="input-group m-0 p-0">
-			<input type="text" class="form-control" placeholder="Path" aria-label="Path" value="{{ note.path }}">
-			<span class="input-group-text">/</span>
-			<input type="text" class="form-control" placeholder="Name" aria-label="Name" value="{{ note.name }}">
-			<span class="input-group-text">.md</span>
+			<input type="text" class="form-control rounded-0" placeholder="Path" aria-label="Path" value="{{ note.path }}">
+			<span class="input-group-text rounded-0">/</span>
+			<input type="text" class="form-control rounded-0" placeholder="Name" aria-label="Name" value="{{ note.name }}">
+			<span class="input-group-text rounded-0">.md</span>
 		</div>
 
 		<div class="btn-group btn-small" role="group" aria-label="Basic mixed styles example">
-			<button type="button" class="btn btn-sm btn-danger rounded-0 border border-white">Cancel</button>
-			<button type="button" class="btn btn-sm btn-success rounded-0 border border-white">Save</button>
+			<button hx-get="/{{ note.name }}" hx-push-url="true" hx-target="eisei content" type="button" class="btn btn-sm btn-danger rounded-0 border border-white">Cancel</button>
+			<button hx-post="/{{ note.name }}/" hx-ext='json-enc' hx-params="[note_content='id']" hx-push-url="true" hx-target="#content" type="button" class="btn btn-sm btn-success rounded-0 border border-white">Save</button>
 		</div>
 	</div>
 
@@ -26,7 +26,7 @@
 
 	<!-- note content -->
 	<div class="form-floating">
-		<textarea class="form-control textarea h-100" rows="25" id="floatingTextarea">{{ note_content }}</textarea>
+		<textarea id="noteContent" class="form-control textarea h-100 rounded-0" rows="25" id="floatingTextarea">{{ note_content }}</textarea>
 	</div>
 
 </div>

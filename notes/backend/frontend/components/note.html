@@ -12,7 +12,7 @@
 		<h5>{{ note.path }}</h5>
 		<h4 class="m-0">{{ note.name }}</h4>
 		<div class="btn-group" role="group" aria-label="Basic mixed styles">
-			<button type="button" class="btn btn-sm btn-dark rounded-0 border border-white">Edit</button>
+			<button hx-get="/{{ note.name }}/edit" hx-push-url="true" hx-target="#content" type="button" class="btn btn-sm btn-dark rounded-0 border border-white">Edit</button>
 			<button type="button" class="btn btn-sm btn-dark rounded-0 border border-white" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
 		</div>
 	</div>
