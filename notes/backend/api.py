@@ -103,14 +103,14 @@ async def new_note(request: Request):
     )
 
 
-@app.get("/search/{note_name}", response_class=HTMLResponse)
-async def search_notes(request: Request, note_name: str, offset: int = 0, limit: int = 10):
-    notes_content = domain.get_all_where(column("name").contains(note_name))
+@app.post("/search/", response_class=HTMLResponse)
+async def search_notes(request: Request, name: Annotated[str, Form()] = ""):
+    notes_data = domain.get_all_where(column("name").contains(name))
     return templates.TemplateResponse(
-        "components/index.html",
+        "components/search.html",
         {
             "request": request,
-            "notes": notes_content,
+            "notes": notes_data,
         },
         block_name="content" if hx(request) else None
     )

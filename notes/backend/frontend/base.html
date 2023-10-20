@@ -24,8 +24,10 @@
 						</li>
 						<li class="nav-item">
 							<div class="input-group mb-3 rounded-0">
-								<input type="text" class="form-control rounded-0" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-								<button class="rounded-0 btn btn-outline-light" type="button" id="button-addon1">search</button>
+								<form hx-post="/search/" hx-target="#content" id="search_form">
+								</form>
+								<input form="search_form" name="name" type="text" class="form-control rounded-0" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+								<button form="search_form" class="rounded-0 btn btn-outline-light" type="submit" id="button-addon1">search</button>
 							</div>
 						</li>
 					</ul>
