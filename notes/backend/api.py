@@ -1,5 +1,6 @@
+from pydantic import BaseModel
 from . import domain, models
-from fastapi import Body
+from fastapi import Body, Depends, Form
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -49,16 +50,22 @@ async def get_note(request: Request, note_name: str):
 
 
 @app.post("/{note_name}", response_class=HTMLResponse)
-async def post_note(request: Request, note_name: str, item: Annotated[models.RequestNote, Body(embed=True)]):
-    note = models.Note(name=note_name, path="")
-    note_content = domain.get_html(note)
+async def post_note(
+        request: Request,
+        name: Annotated[str, Form()],
+        content: Annotated[str, Form()],
+        path: Annotated[str, Form()] = "",
+):
+    note = models.Note(name=name, path=path)
     note = domain.get_all_where(
-            models.Note.name == note_name
-            )[0]
-    domain.update(note.id, note, item.content)
+        models.Note.name == name
+    )[0]
+    assert note.id
+    domain.update(note.id, note, content)
+    note_content = domain.get_html(note)
     print(request.headers, "headers")
     print(request.body, "body")
-    print(item)
+    print(name, path, content)
     return templates.TemplateResponse(
         "components/note.html",
         {
@@ -100,7 +107,7 @@ async def new_note(request: Request):
 async def search_notes(request: Request, note_name: str, offset: int = 0, limit: int = 10):
     notes_content = domain.get_all_where(column("name").contains(note_name))
     return templates.TemplateResponse(
-        "components/search.html",
+        "components/index.html",
         {
             "request": request,
             "notes": notes_content,
