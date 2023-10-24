@@ -20,8 +20,21 @@
 		</div>
 
 		<div class="btn-group btn-small" role="group" aria-label="Basic mixed styles example">
-			<button hx-get="/{{ note.name }}" hx-push-url="true" hx-target="eisei content" type="button" class="btn btn-sm btn-danger rounded-0 border border-white">Cancel</button>
-			<button form="note_form" type="submit" class="btn btn-sm btn-success rounded-0 border border-white">Save</button>
+			<button
+				hx-confirm="Any changes will be lost"
+				hx-get="/{{ note.name }}"
+				hx-push-url="true"
+				hx-target="#content"
+				type="button"
+				class="btn btn-sm btn-danger rounded-0 border border-white">
+				Cancel
+			</button>
+			<button
+				form="note_form"
+				type="submit"
+				class="btn btn-sm btn-success rounded-0 border border-white">
+				Save
+			</button>
 		</div>
 	</div>
 

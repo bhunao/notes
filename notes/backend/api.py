@@ -1,8 +1,7 @@
-from pydantic import BaseModel
-from . import domain, models
-from fastapi import Body, Depends, Form
+from . import domain, models, files
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi import Form
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from jinja2_fragments.fastapi import Jinja2Blocks
 from sqlmodel import column
@@ -63,9 +62,6 @@ async def post_note(
     assert note.id
     domain.update(note.id, note, content)
     note_content = domain.get_html(note)
-    print(request.headers, "headers")
-    print(request.body, "body")
-    print(name, path, content)
     return templates.TemplateResponse(
         "components/note.html",
         {
@@ -114,3 +110,11 @@ async def search_notes(request: Request, name: Annotated[str, Form()] = ""):
         },
         block_name="content" if hx(request) else None
     )
+
+
+@app.post("/insert/metadata/", response_class=JSONResponse)
+async def post_insert_metadata():
+    lista = files.list_files_in_directory(files.directory_path)
+    domain.generate_note_metadata(lista)
+    return { "true": True}
+
