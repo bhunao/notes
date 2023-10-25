@@ -8,7 +8,7 @@
 
 	<hr>
 
-	<form hx-post="/{{ note.name }}/" hx-push-url="true" hx-target="#content" id="note_form">
+	<form hx-post="/{{ note.id }}" hx-push-url="true" hx-target="#content" id="note_form">
 	</form>
 
 	<div class="d-flex w-100 justify-content-between">
@@ -22,7 +22,7 @@
 		<div class="btn-group btn-small" role="group" aria-label="Basic mixed styles example">
 			<button
 				hx-confirm="Any changes will be lost"
-				hx-get="/{{ note.name }}"
+				hx-get="/{{ note.id }}"
 				hx-push-url="true"
 				hx-target="#content"
 				type="button"
@@ -42,7 +42,7 @@
 
 	<!-- note content -->
 	<div class="form-floating">
-		<textarea name="content" form="note_form" class="form-control textarea h-100 rounded-0" rows="25" id="floatingTextarea">{{ note_content }}</textarea>
+		<textarea name="content" form="note_form" class="form-control textarea h-100 rounded-0" rows="25" id="floatingTextarea">{{ note.content }}</textarea>
 	</div>
 
 </div>

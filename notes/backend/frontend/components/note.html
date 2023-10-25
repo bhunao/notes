@@ -13,7 +13,7 @@
 		<h4 class="m-0">{{ note.name }}</h4>
 		<div class="btn-group" role="group">
 			<button
-				hx-get="/{{ note.name }}/edit"
+				hx-get="/{{ note.id }}/edit"
 				hx-push-url="true"
 				hx-target="#content"
 				type="button"
@@ -22,7 +22,7 @@
 			</button>
 			<button
 				hx-confirm="Are you sure you want to delete '{{ note.name }}' ?"
-				hx-delete="/{{ note.name }}/"
+				hx-delete="/{{ note.id }}"
 				type="button"
 				class="btn btn-sm btn-dark rounded-0 border border-white" >
 				Delete
@@ -33,7 +33,7 @@
 	<hr>
 
 	<!-- note content -->
-	{{ note_content | safe }}
+	{{ note.content | safe }}
 
 </div>
 {% endblock %}

@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container pt-5 pb-5">
+	<h1>{{ title }}</h1>
 
 	<div class="list-group rounded-0">
 
 		{% for note in notes %}
-		<a href="/{{ note.name }}/" class="list-group-item list-group-item-action border border-3" aria-current="true">
+		<a href="/{{ note.id }}" class="list-group-item list-group-item-action border border-3" aria-current="true">
 			<div class="d-flex w-100 justify-content-between">
 				<h5>{{ note.path }}</h5>
 				<h4 class="mb-0">{{ note.name }}</h4>
 			</div>
 			<hr>
-			<p class="mb-1">Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.</p>
+			<p class="mb-1">{{ note.content | safe }}</p>
 			<hr>
 			<div class="d-flex w-100 justify-content-between">
 				<small><strong>created:</strong> {{ note.date_created }}</small>
@@ -21,32 +22,6 @@
 		{% endfor %}
 
 	</div>
-
-	<nav aria-label="Page navigation example">
-		<ul class="pagination pt-3 justify-content-center">
-			{% if pages[0]  %}
-			<li class="page-item">
-				<a class="page-link" href="/?page={{ pages[0] }}">Previous</a>
-			</li>
-			{% else  %}
-			<li class="page-item disabled">
-				<a class="page-link">Previous</a>
-			</li>
-			{% endif %}
-
-			<li class="page-item"><a class="page-link" href="#">{{ pages[1] }}</a></li>
-
-			{% if pages[2]  %}
-			<li class="page-item">
-				<a class="page-link" href="/?page={{ pages[2] }}">Next</a>
-			</li>
-			{% else  %}
-			<li class="page-item disabled">
-				<a class="page-link disabled">Next</a>
-			</li>
-			{% endif %}
-		</ul>
-	</nav>
 
 </div>
 {% endblock %}
