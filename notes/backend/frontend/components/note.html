@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container pb-5 pt-3">
+	<div class="d-flex justify-content-between">
+		<small><strong>created:</strong> {{ note.date_created }}</small>
+		<small><strong>last edit:</strong> {{ note.last_edit }}</small>
+	</div>
+
+	<hr>
+
+	<div class="d-flex w-100 justify-content-between">
+		<h5>{{ note.path }}</h5>
+		<h4 class="m-0">{{ note.name }}</h4>
+		<div class="btn-group" role="group">
+			<button
+				hx-get="/{{ note.id }}/edit"
+				hx-push-url="true"
+				hx-target="#content"
+				type="button"
+				class="btn btn-sm btn-dark rounded-0 border border-white" >
+				Edit
+			</button>
+			<button
+				hx-confirm="Are you sure you want to delete '{{ note.name }}' ?"
+				hx-delete="/{{ note.id }}"
+				type="button"
+				class="btn btn-sm btn-dark rounded-0 border border-white" >
+				Delete
+			</button>
+		</div>
+	</div>
+
+	<hr>
+
+	<!-- note content -->
+	{{ note.content | safe }}
+
+</div>
+{% endblock %}

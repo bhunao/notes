@@ -10,6 +10,9 @@ python = "^3.10"
 Markdown = "^3.5"
 fastapi = "^0.103.2"
 sqlmodel = "^0.0.8"
+uvicorn = {extras = ["standard"], version = "^0.23.2"}
+jinja2-fragments = "^1.1.0"
+python-multipart = "^0.0.6"
 
 
 [build-system]

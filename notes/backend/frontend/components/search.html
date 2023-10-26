@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container pt-5 pb-5">
+	<h1>search</h1>
+
+	<div class="list-group rounded-0">
+
+		{% for note in notes %}
+		<a href="/{{ note.id }}" class="list-group-item list-group-item-action border border-3" aria-current="true">
+			<div class="d-flex w-100 justify-content-between">
+				<h5>{{ note.path }}</h5>
+				<h4 class="mb-0">{{ note.name }}</h4>
+			</div>
+			<hr>
+			<p class="mb-1">{{ note.content | safe }}</p>
+			<hr>
+			<div class="d-flex w-100 justify-content-between">
+				<small><strong>created:</strong> {{ note.date_created }}</small>
+				<small><strong>last edit:</strong> {{ note.last_edit }}</small>
+			</div>
+		</a>
+		{% endfor %}
+
+	</div>
+
+</div>
+{% endblock %}

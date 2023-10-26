@@ -2,7 +2,7 @@ from datetime import datetime
 from sqlmodel import Session, SQLModel, create_engine, select
 from sqlalchemy.future import Engine
 from typing import List
-from models import Note
+from .models import Note
 
 sqlite_file_name = "database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
@@ -11,17 +11,27 @@ engine = create_engine(sqlite_url, echo=True)
 SQLModel.metadata.create_all(engine)
 
 
-def create(note: Note, _engine: Engine = engine):
+def create(note: Note, _engine: Engine = engine) -> Note:
     with Session(_engine) as session:
         session.add(note)
         session.commit()
         session.refresh(note)
+        return note
 
 
-def select_all(_engine: Engine = engine) -> List[Note]:
+def select_all(offset: int = 0, limit: int = 10,_engine: Engine = engine) -> List[Note]:
     with Session(_engine) as session:
-        statement = select(Note)
-        return [note for note in session.exec(statement)]
+        statement = select(Note).order_by(Note.last_edit).offset(offset).limit(limit)
+        result = [note for note in session.exec(statement).fetchall()][::-1]
+        return result
+
+
+def select_all_where(*where_options, offset: int = 0, limit: int = 10,_engine: Engine = engine) -> List[Note]:
+    with Session(_engine) as session:
+        print(*where_options, sep="\n algo======= ")
+        statement = select(Note).where(*where_options).order_by(Note.last_edit).offset(offset).limit(limit)
+        result = [note for note in session.exec(statement).fetchall()][::-1]
+        return result
 
 
 def select_note(note: Note, _engine: Engine = engine) -> List[Note]:
@@ -43,6 +53,14 @@ def select_by_id(id: int, _engine: Engine = engine) -> Note | None:
         )
         result = session.exec(statement).one_or_none()
         return result
+
+
+def update(note: Note, _engine: Engine = engine) -> bool:
+    with Session(_engine) as session:
+        session.add(note)
+        session.commit()
+        session.refresh(note)
+        return True
 
 
 def update_by_id(id: int, new_note: Note, _engine: Engine = engine) -> bool:

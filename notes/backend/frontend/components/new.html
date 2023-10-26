@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container pb-5 pt-3">
+
+	{% if error %}
+	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		<strong>ERROR</strong> could not create note {{ note.path }}/{{ note.name }}
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+	{% endif %}
+
+	<div class="d-flex justify-content-between">
+		<small><strong>created:</strong> now({{ note.date_created }})</small>
+		<small><strong>last edit:</strong> -----</small>
+	</div>
+
+	<hr>
+
+	<form hx-post="/new/" hx-push-url="true" hx-target="#content" id="note_form">
+	</form>
+
+	<div class="d-flex w-100 justify-content-between">
+		<div class="input-group m-0 p-0">
+			<input form="note_form" name="path" type="text" class="form-control rounded-0" placeholder="Path" aria-label="Path" value="{{ note.path }}">
+			<span class="input-group-text rounded-0">/</span>
+			<input form="note_form" name="name" type="text" class="form-control rounded-0" placeholder="Name" aria-label="Name" value="{{ note.name }}">
+			<span class="input-group-text rounded-0">.md</span>
+		</div>
+
+		<div class="btn-group btn-small" role="group" aria-label="Basic mixed styles example">
+			<button
+				hx-confirm="Any changes will be lost"
+				hx-get="/{{ note.id }}"
+				hx-push-url="true"
+				hx-target="#content"
+				type="button"
+				class="btn btn-sm btn-danger rounded-0 border border-white">
+				Cancel
+			</button>
+			<button
+				form="note_form"
+				type="submit"
+				class="btn btn-sm btn-success rounded-0 border border-white">
+				Save
+			</button>
+		</div>
+	</div>
+
+	<hr>
+
+	<!-- note content -->
+	<div class="form-floating">
+		<textarea name="content" form="note_form" class="form-control textarea h-100 rounded-0" rows="25" id="floatingTextarea">{{ note.content }}</textarea>
+	</div>
+
+</div>
+{% endblock %}
