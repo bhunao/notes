@@ -11,8 +11,8 @@ from markdown import markdown as toHtml
 str_form = Annotated[str, Form()]
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="backend/static/"), name="static")
-templates = Jinja2Blocks(directory="backend/frontend")
+app.mount("/static", StaticFiles(directory="static/"), name="static")
+templates = Jinja2Blocks(directory="templates")
 
 
 def hx(request: Request) -> bool:
