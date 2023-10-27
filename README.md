@@ -14,15 +14,15 @@ Website for creating, editing and search for texts in markdown. Initialy made to
 ## API endpoints
 `localhost:8000/docs/`
 
-**GET**     /                   Index
-**GET**     /{id}               Get
-**POST**    /{id}               Update
-**DELETE**  /{id}               Delete
-**GET**     /{id}/edit          Edit
-**GET**     /new/               Create
-**POST**    /new/               Insert New
-**POST**    /search/            Search
-**POST**    /insert/metadata/   Post Insert Metadata -- debug
+**GET**     /                   Index  
+**GET**     /{id}               Get  
+**POST**    /{id}               Update  
+**DELETE**  /{id}               Delete  
+**GET**     /{id}/edit          Edit  
+**GET**     /new/               Create  
+**POST**    /new/               Insert New  
+**POST**    /search/            Search  
+**POST**    /insert/metadata/   Post Insert Metadata -- debug  
 
 ## TODOS
 - create tests
