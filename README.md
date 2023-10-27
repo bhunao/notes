@@ -20,7 +20,7 @@ Website for creating, editing and search for texts in markdown. Initialy made to
 | **GET**       |     /{id}             | Get  |
 | **POST**      |    /{id}             | Update  |
 | **DELETE**    |  /{id}             | Delete  |
-| **GET**  |     /{id}/edit        | Edit  |
+| **GET**       |     /{id}/edit        | Edit  |
 | **GET**  |     /new/             | Create  |
 | **POST**  |    /new/             | Insert New  |
 | **POST**  |    /search/          | Search  |
